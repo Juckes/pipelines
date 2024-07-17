@@ -23,16 +23,6 @@ stages:
         pip install -r requirements.txt
       displayName: 'Install dependencies'
 
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: '$(AZURE_SERVICE_CONNECTION)'
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          # Run your Azure CLI commands here if needed
-          az account show
-      displayName: 'Azure CLI operation'
-
     - script: |
         pytest tests/
       displayName: 'Run PyTests'

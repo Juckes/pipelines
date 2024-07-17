@@ -23,6 +23,14 @@ stages:
         pip install -r requirements.txt
       displayName: 'Install dependencies'
 
-    - script: |
+    - task: AzureRmEndpoint@1  # Added step for service connection
+      displayName: 'Authenticate with Azure'
+      inputs:
+        azureSubscriptionConnection: 'my-azure-service-connection'
+        serviceEndpointName: '$(System.DefaultWorkingDirectory)'
+
+    - script: |  # Modify your script to use credentials if needed
+        endpoint = os.environ.get('AZURE_RM_ENDPOINT_NAME')
+
         pytest pytests.py
       displayName: 'Run PyTests'
